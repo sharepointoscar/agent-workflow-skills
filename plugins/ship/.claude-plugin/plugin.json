@@ -1,0 +1,11 @@
+{
+  "name": "ship",
+  "displayName": "Ship",
+  "version": "1.0.0",
+  "description": "End-to-end feature/fix lifecycle: idea to released-and-verified, with five human gates. Adapts to whatever project you're in.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}
