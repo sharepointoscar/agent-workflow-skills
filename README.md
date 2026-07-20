@@ -44,7 +44,11 @@ screen is something no test suite can catch.
 
 ## Install
 
-Add the marketplace, then install whichever plugins you want:
+**Prerequisite:** [Claude Code](https://code.claude.com) installed. `design-mockup` additionally needs
+the [Stitch](https://stitch.withgoogle.com) MCP server configured — `ship` needs nothing.
+
+Register the marketplace once, then install whichever plugins you want. From inside a Claude Code
+session:
 
 ```
 /plugin marketplace add sharepointoscar/agent-workflow-skills
@@ -52,22 +56,56 @@ Add the marketplace, then install whichever plugins you want:
 /plugin install design-mockup@agent-workflow-skills --scope user
 ```
 
-`--scope user` makes them available in every project on that machine. Drop it to install per-project
-instead.
+Or from your terminal, which works the same way:
 
-To pull later changes:
-
+```bash
+claude plugin marketplace add sharepointoscar/agent-workflow-skills
+claude plugin install ship@agent-workflow-skills --scope user
+claude plugin install design-mockup@agent-workflow-skills --scope user
 ```
-/plugin marketplace update agent-workflow-skills
+
+`--scope user` makes them available in every project on that machine. Drop it to install for the
+current project only.
+
+### Verify it worked
+
+```bash
+claude plugin list
 ```
 
-Auto-update is off by default for third-party marketplaces — turn it on per machine under `/plugin` →
+Both should appear as `enabled` at `user` scope. Start a new session and type `/ship` — the skill
+loads there.
+
+### Update
+
+```bash
+claude plugin marketplace update agent-workflow-skills
+```
+
+Auto-update is off by default for third-party marketplaces. Turn it on per machine under `/plugin` →
 Marketplaces if you'd rather not update by hand.
+
+### Uninstall
+
+```bash
+claude plugin uninstall ship@agent-workflow-skills
+```
 
 ## Using them across machines
 
-Install on each machine with the same two commands above. The marketplace is the sync mechanism:
-edit a skill here, commit, push, and `/plugin marketplace update` on your other machines.
+Run the install commands on each machine — that's the whole sync mechanism. Edit a skill in this
+repo, commit, push, then `claude plugin marketplace update agent-workflow-skills` everywhere else.
+
+Keeping a second hand-edited copy in `~/.claude/skills/` alongside the installed plugin will silently
+drift. Pick one source of truth; this repo is the intended one.
+
+### Working on the skills themselves
+
+Clone the repo, edit `plugins/<name>/skills/<name>/SKILL.md`, and to try a change before pushing:
+
+```bash
+claude --plugin-dir ./plugins/ship
+```
 
 ## License
 
