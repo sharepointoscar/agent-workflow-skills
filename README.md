@@ -44,8 +44,29 @@ screen is something no test suite can catch.
 
 ## Install
 
-**Prerequisite:** [Claude Code](https://code.claude.com) installed. `design-mockup` additionally needs
-the [Stitch](https://stitch.withgoogle.com) MCP server configured — `ship` needs nothing.
+**Prerequisite:** [Claude Code](https://code.claude.com) installed. `ship` needs nothing else.
+`design-mockup` additionally requires the Stitch MCP server — see below.
+
+### Setting up Stitch (design-mockup only)
+
+`design-mockup` drives [Stitch](https://stitch.withgoogle.com), Google's design-to-code tool, over
+MCP. Get an API key from your Stitch account, then register the server:
+
+```bash
+claude mcp add --transport http stitch https://stitch.googleapis.com/mcp \
+  --header "X-Goog-Api-Key: YOUR_STITCH_API_KEY"
+```
+
+Add `--scope user` to make it available in every project on that machine.
+
+Verify it connected:
+
+```bash
+claude mcp list
+```
+
+`stitch` should appear as connected. Without it, the `design-mockup` skill still installs but cannot
+generate anything — the `mcp__stitch__*` tools it depends on won't exist.
 
 Register the marketplace once, then install whichever plugins you want. From inside a Claude Code
 session:
