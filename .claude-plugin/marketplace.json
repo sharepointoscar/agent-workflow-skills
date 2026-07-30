@@ -1,18 +1,14 @@
 {
-  "name": "agent-workflow-skills",
+  "name": "claude-skills",
   "owner": {
     "name": "DevOpsOscar",
     "email": "me@devopsoscar.dev"
   },
-  "description": "Project-agnostic Claude Code skills for shipping software and designing UI before you build it.",
+  "description": "Project-agnostic Claude Code skills for shipping software, designing UI before you build it, and turning static diagrams into animated walkthroughs.",
   "plugins": [
     {
-      "name": "ship",
-      "source": "./plugins/ship"
-    },
-    {
-      "name": "design-mockup",
-      "source": "./plugins/design-mockup"
+      "name": "devopsoscar",
+      "source": "./plugins/devopsoscar"
     }
   ]
 }

@@ -1,0 +1,64 @@
+{
+  "title": "Agentic Runtime Security — Bedrock AgentCore + HashiCorp Vault",
+  "footer": "Step-through of the AgentCore + Vault request path. Vault never authenticates the user — it validates an AgentCore-issued JWT via JWKS, and that seam is the only trust boundary between the two systems.",
+  "baseColor": "#3b82f6",
+  "trailOpacity": 0.16,
+  "alwaysVisible": ["g-title"],
+
+  "timing": { "draw": 950, "hold": 2150, "pulseCycle": 1250, "outro": 900 },
+
+  "overview": {
+    "title": "Full architecture — 7-step request path",
+    "html": "End user → AgentCore Runtime → AgentCore Identity → <b>JWKS seam</b> → Vault → JIT credentials → protected resources → audit → answer. Press <b>Play</b>, or click any numbered chip to jump straight to that step."
+  },
+  "complete": {
+    "color": "#22c55e",
+    "title": "Complete — one trust plane each, one seam between them",
+    "html": "AgentCore owns <b>identity and runtime</b>; Vault owns <b>authorization, credentials, and audit</b>. They meet at exactly one place: <b>Vault validating an AgentCore-issued JWT via JWKS</b>. Vault never authenticates the user, and no credential outlives its lease."
+  },
+
+  "steps": [
+    {
+      "n": 1, "path": "p1", "flow": "f1", "color": "#3b82f6", "tag": "authN",
+      "focus": ["g-user", "g-ac-shell", "g-runtime"],
+      "title": "Authenticate + invoke",
+      "html": "The end user signs in against the <b>external OIDC IdP</b> (Cognito, Okta, Entra ID, IBM Verify — pluggable) using <b>OAuth 2.0 + PKCE</b>, then invokes the agent. AgentCore Runtime is managed and serverless: no EKS, no ServiceAccounts, no NetworkPolicy to operate."
+    },
+    {
+      "n": 2, "path": "p2", "flow": "f2", "color": "#a855f7", "tag": "identity",
+      "focus": ["g-runtime", "g-ac-shell", "g-stv", "g-identity"],
+      "title": "Issue user-context JWT",
+      "html": "The runtime asks <b>AgentCore Identity</b> for a token. The JWT carries both the agent's <b>workload identity (ARN)</b> and the <b>end user's identity claims</b>. The <b>Secure Token Vault</b> holds short-lived user-delegated OAuth tokens (on-behalf-of) — this replaces IVIA / CIBA out-of-band consent."
+    },
+    {
+      "n": 3, "path": "p3", "flow": "f3", "color": "#a855f7", "tag": "the seam",
+      "focus": ["g-identity", "g-seam", "g-vault-shell", "g-oauth", "g-registry", "g-ephemeral"],
+      "title": "Present JWT → Vault validates (the seam)",
+      "html": "Vault's <b>OAuth resource server</b> validates the signature against AgentCore's <b>JWKS endpoint</b> — no separate Vault login step. The <b>Agent Registry</b> checks the agent is a registered identity entity with approved scopes (unregistered agents are blocked), and authorization is bound to the <b>authorization_details</b> claim in the JWT body. This JWKS trust is the only seam between the two systems."
+    },
+    {
+      "n": 4, "path": "p4", "flow": "f4", "color": "#3b82f6", "tag": "JIT creds",
+      "focus": ["g-dynsecrets", "g-vault-shell", "g-runtime", "g-ac-shell"],
+      "title": "Vend short-lived JIT credentials",
+      "html": "The <b>dynamic secrets engine</b> mints per-request credentials — DB (Postgres, MySQL, Mongo), AWS IAM, SSH, PKI, KV — scoped to that authorization and TTL-bound to the JWT lease. <b>No standing privileges:</b> the credentials die when the lease expires."
+    },
+    {
+      "n": 5, "path": "p5", "flow": "f5", "color": "#14b8a6", "tag": "data access",
+      "focus": ["g-runtime", "g-ac-shell", "g-res-shell", "g-res-items"],
+      "title": "Access protected resources",
+      "html": "The agent reaches databases, AWS IAM/STS and SaaS APIs, SSH/PKI/KV, and Bedrock Nova models <b>only</b> with the Vault-vended, short-lived credentials. Everything auto-revokes at lease expiry — no rotation scripts."
+    },
+    {
+      "n": 6, "path": "p6", "flow": "f6", "color": "#ef4444", "tag": "attribution",
+      "focus": ["g-vault-audit", "g-vault-shell", "g-audit"],
+      "title": "Every credential request is logged",
+      "html": "Vault writes each request to its <b>hash-chained, tamper-evident audit log</b>: agent identity, resolved user identity from the JWT claims, JWT metadata, credential lease ID, timestamp. <b>One</b> audit stream answers who caused which query — replacing the old 3-plane Athena JOIN across IVIA, Vault, and pgaudit."
+    },
+    {
+      "n": 7, "path": "p7", "flow": "f7", "color": "#22c55e", "tag": "response",
+      "focus": ["g-runtime", "g-ac-shell", "g-user"],
+      "title": "Stream the answer back",
+      "html": "The result streams back to the user. <b>User attribution is preserved end-to-end on every hop</b> — and because each credential was leased, not granted, the agent holds nothing once the task ends."
+    }
+  ]
+}

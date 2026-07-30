@@ -1,0 +1,11 @@
+{
+  "name": "devopsoscar",
+  "displayName": "DevOpsOscar Skills",
+  "version": "1.0.0",
+  "description": "Ship a change end to end with five human gates, settle UI visually before writing code, and turn static diagrams into narrated step-through animations. Each skill adapts to whatever project you're in.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}
