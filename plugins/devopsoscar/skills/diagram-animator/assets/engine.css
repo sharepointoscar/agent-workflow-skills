@@ -1,0 +1,119 @@
+/* diagram-animator — chrome + animation states.
+ * Everything themable is a CSS custom property on :root, so a light theme or a
+ * brand palette is a variable swap rather than a rewrite. See
+ * references/theming.md for the ready-made variable blocks. */
+:root{
+  --bg:#0d1117;
+  --panel:#161b22;
+  --edge:#30363d;
+  --fg:#e6edf3;
+  --muted:#8b949e;
+  --kbd:#1c2430;
+  --btn:#1c2430;
+  --btn-hover:#26313f;
+  --btn-primary:#1d4ed8;
+  --btn-primary-hover:#2563eb;
+  --btn-primary-edge:#3b82f6;
+  --glow:#3b82f6;            /* set per step by the engine */
+  --dim-opacity:.10;         /* how far unfocused layers fall back */
+  --focus-blur-1:7px;
+  --focus-blur-2:16px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;}
+.wrap{max-width:1720px;margin:0 auto;padding:18px 20px 40px}
+
+/* ------------------------------------------------------------- caption bar */
+.caption{
+  display:flex;gap:16px;align-items:flex-start;background:var(--panel);
+  border:1px solid var(--edge);border-left:4px solid var(--glow);
+  border-radius:10px;padding:14px 18px;margin-bottom:14px;min-height:86px;
+  transition:border-color .35s ease;
+}
+.cap-num{
+  flex:0 0 44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  font-size:19px;font-weight:700;color:#fff;background:var(--glow);
+  box-shadow:0 0 18px -2px var(--glow);
+  transition:background .35s ease,box-shadow .35s ease;
+}
+.cap-body{flex:1;min-width:0}
+.cap-title{font-size:15px;font-weight:700;margin:2px 0 5px;letter-spacing:.2px}
+.cap-text{font-size:13px;line-height:1.55;color:var(--muted)}
+.cap-text b{color:var(--fg);font-weight:600}
+.cap-tag{
+  display:inline-block;margin-left:8px;padding:1px 8px;border-radius:10px;
+  font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+  border:1px solid var(--glow);color:var(--glow);vertical-align:2px;
+}
+
+/* --------------------------------------------------------------- controls */
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+button{
+  background:var(--btn);color:var(--fg);border:1px solid var(--edge);border-radius:8px;
+  padding:8px 13px;font-size:13px;cursor:pointer;font-family:inherit;line-height:1;
+  transition:background .15s,border-color .15s,color .15s;
+}
+button:hover{background:var(--btn-hover);border-color:#4b5563}
+button:active{transform:translateY(1px)}
+button.primary{background:var(--btn-primary);border-color:var(--btn-primary-edge);
+  font-weight:600;min-width:104px}
+button.primary:hover{background:var(--btn-primary-hover)}
+.chips{display:flex;gap:6px;margin-left:4px}
+.chip{
+  width:31px;height:31px;border-radius:50%;display:grid;place-items:center;
+  font-size:12px;font-weight:700;cursor:pointer;user-select:none;
+  background:var(--btn);border:1px solid var(--edge);color:var(--muted);
+  transition:all .2s ease;
+}
+.chip:hover{border-color:#6b7280;color:var(--fg)}
+.chip.done{color:#fff;opacity:.72}
+.chip.active{color:#fff;transform:scale(1.16);opacity:1}
+.spacer{flex:1}
+.hint{font-size:11px;color:#6b7280}
+kbd{background:var(--kbd);border:1px solid var(--edge);border-bottom-width:2px;
+  border-radius:4px;padding:1px 5px;font-size:10px;font-family:inherit;color:var(--muted)}
+input[type=range]{accent-color:var(--glow);width:190px}
+
+/* ------------------------------------------------------------------ stage */
+.stage{border:1px solid var(--edge);border-radius:12px;overflow:hidden;
+  background:var(--bg);box-shadow:0 12px 40px -18px #000}
+svg#diagram{display:block;width:100%;height:auto}
+.foot{margin-top:14px;font-size:11px;color:#6b7280;line-height:1.7}
+
+/* -------------------------------------------------------- animation states
+ * Dimmable units are FLAT SIBLINGS (see references/grouping.md). Nesting them
+ * would multiply opacities and make a highlighted child inside a dimmed parent
+ * impossible to reach full brightness. */
+.layer{transition:opacity .5s cubic-bezier(.4,0,.2,1), filter .5s ease}
+.layer.dim{opacity:var(--dim-opacity)}
+.layer.trail{opacity:.42}
+.layer.hot{opacity:1}
+.hot-glow{filter:drop-shadow(0 0 var(--focus-blur-1) var(--glow))
+                drop-shadow(0 0 var(--focus-blur-2) var(--glow))}
+
+.flowline{transition:opacity .4s ease}
+.draw{fill:none;stroke-linecap:round;pointer-events:none}
+.pulse{pointer-events:none}
+.badge{transform-box:fill-box;transform-origin:center;
+  transition:transform .06s linear,opacity .12s linear}
+
+/* ambient dash drift once the run reaches the end (and in overview) */
+#diagram.ambient .flowline{animation:drift 1.4s linear infinite}
+@keyframes drift{to{stroke-dashoffset:-18}}
+
+/* Frame export disables every non-seekable animation so screenshots are
+ * reproducible. export_frames.js sets this class before capturing. */
+body.exporting *,
+body.exporting *::before,
+body.exporting *::after{
+  animation:none !important;
+  transition:none !important;
+}
+body.exporting .chrome{display:none}
+
+@media (prefers-reduced-motion: reduce){
+  .layer{transition:none}
+  #diagram.ambient .flowline{animation:none}
+}

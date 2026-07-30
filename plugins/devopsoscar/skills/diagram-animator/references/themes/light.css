@@ -1,0 +1,24 @@
+/* light theme — for print, light decks, and docs embedding.
+ * Note: this restyles the chrome only. If the source SVG has a dark canvas,
+ * also change its background rect, or the stage will be a dark island on a
+ * light page. */
+:root{
+  --bg:#ffffff;
+  --panel:#f6f8fa;
+  --edge:#d0d7de;
+  --fg:#1f2328;
+  --muted:#57606a;
+  --kbd:#eef1f4;
+  --btn:#f6f8fa;
+  --btn-hover:#eaeef2;
+  --btn-primary:#0969da;
+  --btn-primary-hover:#0a5fc2;
+  --btn-primary-edge:#0969da;
+  --dim-opacity:.16;
+  --focus-blur-1:5px;
+  --focus-blur-2:11px;
+}
+.stage{box-shadow:0 8px 26px -20px #24292f}
+.cap-text b{color:#1f2328}
+.hint{color:#8c959f}
+.foot{color:#8c959f}
