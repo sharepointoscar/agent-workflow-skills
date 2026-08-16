@@ -1,0 +1,9 @@
+{
+  "name": "agents-support-ops",
+  "version": "1.0.0",
+  "description": "Run it once it is live: support response, analytics and executive reporting, finance tracking, infrastructure maintenance, legal and compliance checks, and data consolidation, extraction and distribution.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  }
+}

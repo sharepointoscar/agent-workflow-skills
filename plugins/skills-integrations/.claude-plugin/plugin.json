@@ -1,0 +1,10 @@
+{
+  "name": "skills-integrations",
+  "version": "1.0.0",
+  "description": "Wiring to other people’s systems: the automation skills for Slack, Jira, Notion, Asana, HubSpot, Salesforce, Stripe, Zapier and Make, the Google and Microsoft suites, the messaging platforms, and the CRM and helpdesk tools.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

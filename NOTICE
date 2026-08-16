@@ -1,0 +1,37 @@
+NOTICE
+======
+
+The MIT LICENSE in this repository covers the `devopsoscar` plugin — the `ship`,
+`design-mockup` and `diagram-animator` skills — and the tooling under `scripts/`.
+It does not cover the vendored third-party content described below.
+
+Vendored content
+----------------
+
+The plugins named `agents-*` and `skills-*` are derived from:
+
+    MK-ORGANIZATION-1/AGENTS-COLLECTION
+    https://github.com/MK-ORGANIZATION-1/AGENTS-COLLECTION
+    vendored from commit 41d09336e6aa7f881389b585edfb34768b0a8ca3 (2026-04-16)
+    paths: AGENTS/CLAUDE-CODE/ and SKILLS/CLAUDE-CODE/
+
+**That repository publishes no licence.** Absent one, no redistribution rights are
+granted by its authors, and none are claimed here. It is itself an aggregation of
+agent and skill files collected from roughly fifteen other sources — among them
+the contains-studio agent set and Anthropic's own published skills — each with its
+own upstream authorship and licence terms that the aggregation does not record.
+
+The content is vendored here so it can be versioned and edited rather than copied
+loose into `~/.claude/`. Original authorship remains with whoever wrote each file.
+If you are one of those authors and want a file removed or attributed differently,
+open an issue.
+
+What was changed
+----------------
+
+`scripts/vendor-collection.mjs` is the complete record of the modifications, and
+re-running it reproduces them. In summary: agent `name` fields were rewritten to
+each file's own stem so they are valid identifiers; frontmatter that does not parse
+as YAML was re-emitted using block scalars; five agents that shipped without
+frontmatter were given some; and skill directory names were lowercased. Prose,
+instructions and colours are unmodified.

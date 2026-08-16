@@ -1,0 +1,10 @@
+{
+  "name": "skills-devex",
+  "version": "1.0.0",
+  "description": "How the work gets done: git and PR workflows, commits and changelogs, TDD and testing patterns, debugging strategies, refactoring and tech debt, code review, planning and plan execution, worktrees, and authoring skills themselves.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

@@ -8,6 +8,10 @@ All three are **project-agnostic**. They read the conventions of whatever repo y
 commands, deploy pipeline, release rules, design tokens — rather than assuming a stack. Nothing about
 them is specific to the projects they grew out of.
 
+Alongside them, this marketplace also carries a large [vendored collection](#the-vendored-collection)
+— 111 agents and 499 skills gathered from the wider community, grouped so you can install a category
+at a time.
+
 > **Upgrading from an earlier install?** The marketplace and plugin layout changed — see
 > [Upgrading](#upgrading-from-the-old-layout) before running anything.
 
@@ -146,6 +150,89 @@ Marketplaces if you'd rather not update by hand.
 claude plugin uninstall devopsoscar@claude-skills
 ```
 
+## The vendored collection
+
+Separately from the three skills above, this marketplace carries **111 agents and 499 skills**
+collected by [MK-ORGANIZATION-1/AGENTS-COLLECTION](https://github.com/MK-ORGANIZATION-1/AGENTS-COLLECTION),
+which is itself an aggregation of around fifteen community sources. They live here so they can be
+versioned and edited rather than copied loose into `~/.claude/`, where nothing tracks them and every
+edit is lost on the next re-copy. See [NOTICE](NOTICE) for provenance — that upstream repo publishes
+no licence, and the MIT licence here does not extend to it.
+
+**Read this before installing all of them.** Enabling every group at once adds roughly **76,000
+tokens to every session, in every project**, because each agent and skill puts its name and
+description in context whether or not the task is related. That is the whole reason they are twenty
+plugins instead of one: enable the two or three you actually use.
+
+| Plugin | Holds | Always-on cost |
+|---|---|---|
+| `agents-engineering` | 25 agents — backend/frontend architects, AI and data engineers, DevOps, mobile, prototyping, security, and single-purpose architecture/codegen/CI/docs/repo-scan agents | ~4,592 |
+| `agents-testing` | 14 agents — API testing, accessibility auditing, benchmarking, test writing and fixing, results analysis, tool evaluation | ~4,616 |
+| `agents-support-ops` | 15 agents — support response, analytics and exec reporting, finance, infrastructure, legal and compliance, data extraction | ~3,865 |
+| `agents-design` | 13 agents — brand, UI and UX design, UX research, visual storytelling, image prompting, inclusive visuals | ~3,721 |
+| `agents-project-management` | 10 agents — experiment tracking, shepherding, studio ops and production, shipping, an orchestrator | ~3,356 |
+| `agents-marketing` | 18 agents — content, growth, ASO, and per-channel specialists including WeChat, Xiaohongshu and Zhihu | ~2,439 |
+| `agents-product` | 7 agents — sprint prioritisation, feedback synthesis, trend research, behavioural nudges | ~2,172 |
+| `agents-specialized` | 4 agents — agentic identity and trust, cultural intelligence, developer advocacy, a joker | ~521 |
+| `agents-xr-spatial` | 5 agents — XR interfaces and cockpits, immersive dev, visionOS, macOS Metal | ~240 |
+| `skills-azure-m365` | 69 skills — the Azure SDKs across .NET, Java, Python, TypeScript and Rust, plus M365 agents | ~10,629 |
+| `skills-data-ai` | 72 skills — data engineering, databases, RAG and embeddings, LLM patterns and evaluation, prompting, agent memory | ~6,078 |
+| `skills-devex` | 77 skills — git and PR workflows, TDD, debugging, refactoring, code review, planning, worktrees | ~5,732 |
+| `skills-integrations` | 57 skills — Slack, Jira, Notion, Salesforce, Stripe, Zapier and the rest of the automation set | ~5,326 |
+| `skills-cloud-infra` | 47 skills — AWS and GCP, Kubernetes, Terraform, Helm, Docker, observability, deployment, incident response | ~4,521 |
+| `skills-languages` | 43 skills — the per-language depth skills and their frameworks | ~4,231 |
+| `skills-business` | 40 skills — SEO, paid ads, pricing, launch, startup analysis, product, HR, support | ~4,176 |
+| `skills-security` | 38 skills — penetration testing, web vulnerability classes, threat modelling, SAST, secrets, forensics | ~3,886 |
+| `skills-web-frontend` | 33 skills — React, Next.js, Angular, design systems, accessibility, web performance | ~3,415 |
+| `skills-misc` | 11 skills — the ones that fit nowhere cleanly | ~1,111 |
+| `skills-content-docs` | 12 skills — documentation, wikis, tutorials, Mermaid, Office formats, publishing | ~1,109 |
+
+Install a group, then enable it — they install **disabled** on purpose, so nothing lands in your
+context until you say so:
+
+```bash
+claude plugin install agents-engineering@claude-skills --scope user
+claude plugin enable agents-engineering@claude-skills
+```
+
+Turning one back off costs nothing and keeps it installed:
+
+```bash
+claude plugin disable agents-engineering@claude-skills
+```
+
+Agents from these plugins are namespaced, so they are dispatched as
+`agents-engineering:backend-architect`, and skills as `/skills-devex:systematic-debugging`.
+
+### Two things that look wrong and aren't
+
+**33 of the agents are the same role twice** — `brand-guardian` and `design-brand-guardian`,
+`ai-engineer` and `engineering-ai-engineer`. Upstream merged two collections that both cover the
+ground, and the two takes are genuinely different documents written to different templates. Both are
+kept, under distinct names, in the same plugin. Neither is obviously the better one, so picking for
+you would have been a guess.
+
+**18 upstream files are not here at all.** The phase playbooks, scenario runbooks, handoff templates
+and the NEXUS strategy document are prose about how to run a multi-agent pipeline — they are not
+agents and cannot be installed as any. They stayed upstream.
+
+### Re-vendoring
+
+`scripts/vendor-collection.mjs` regenerates every `agents-*` and `skills-*` plugin from a checkout of
+upstream, and is the complete record of what was changed on the way in. It never touches
+`plugins/devopsoscar`.
+
+```bash
+git clone --depth 1 https://github.com/MK-ORGANIZATION-1/AGENTS-COLLECTION.git /tmp/collection
+node scripts/vendor-collection.mjs /tmp/collection
+```
+
+It fails loudly rather than dropping anything: an agent matching no category, or two skill
+directories colliding when lowercased, stops the run.
+
+Edits you make by hand inside a generated plugin are overwritten by the next run. To keep a change,
+put it in the script — or move the file into `plugins/devopsoscar`, which the script leaves alone.
+
 ## Upgrading from the old layout
 
 Earlier versions of this repo published a marketplace named `agent-workflow-skills` containing two
@@ -190,11 +277,16 @@ claude --plugin-dir ./plugins/devopsoscar
 
 ### A note on context cost
 
-Every installed skill's name and description sit in Claude's context in *every* conversation, whether
-or not the task is related. Three skills is a few hundred tokens — unnoticeable. If this plugin grows
-past roughly ten, splitting it into themed plugins is worth doing, so people only pay for what they
-install. The `skills/` folders don't move when that happens; it's new manifests and nothing else.
+Every enabled skill and agent puts its name and description in Claude's context in *every*
+conversation, whether or not the task is related. The three `devopsoscar` skills are a few hundred
+tokens — unnoticeable. The [vendored collection](#the-vendored-collection) is ~76,000 if you enable
+all of it, which is why it ships as twenty separately-enabled plugins rather than one.
+
+`claude plugin details <name>` prints what any plugin costs before you enable it, broken down per
+agent and per skill.
 
 ## License
 
-MIT
+MIT for the `devopsoscar` plugin and the tooling in `scripts/`. The vendored `agents-*` and
+`skills-*` plugins are third-party content under separate — and largely unstated — terms; see
+[NOTICE](NOTICE).

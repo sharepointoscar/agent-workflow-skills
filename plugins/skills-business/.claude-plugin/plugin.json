@@ -1,0 +1,10 @@
+{
+  "name": "skills-business",
+  "version": "1.0.0",
+  "description": "The commercial side: SEO from keywords to content refresh, paid ads and marketing psychology, pricing and launch strategy, startup analysis and financial modelling, product management, HR and culture, customer support and sales.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

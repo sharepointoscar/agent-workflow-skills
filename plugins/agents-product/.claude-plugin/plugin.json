@@ -1,0 +1,9 @@
+{
+  "name": "agents-product",
+  "version": "1.0.0",
+  "description": "Decide what to build next: sprint prioritisation, feedback synthesis, trend research, and a behavioural nudge engine.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  }
+}

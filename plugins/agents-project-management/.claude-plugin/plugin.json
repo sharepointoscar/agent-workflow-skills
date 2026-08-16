@@ -1,0 +1,9 @@
+{
+  "name": "agents-project-management",
+  "version": "1.0.0",
+  "description": "Keep the work moving: experiment tracking, project shepherding, studio operations and production, shipping, senior project management, and an orchestrator that dispatches the other agents.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "skills-azure-m365",
+  "version": "1.0.0",
+  "description": "Microsoft cloud: the Azure SDK skills across .NET, Java, Python, TypeScript and Rust — AI services, storage, messaging, Key Vault, Cosmos, monitoring — plus the M365 agent SDKs.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

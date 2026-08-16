@@ -1,0 +1,10 @@
+{
+  "name": "skills-misc",
+  "version": "1.0.0",
+  "description": "The skills that fit none of the other groups cleanly — kept together rather than filed somewhere misleading.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}
