@@ -9,6 +9,146 @@
     {
       "name": "devopsoscar",
       "source": "./plugins/devopsoscar"
+    },
+    {
+      "name": "agents-engineering",
+      "source": "./plugins/agents-engineering",
+      "description": "Build the thing: backend and frontend architects, AI and data engineers, DevOps, mobile, rapid prototyping, security engineering, and the small single-purpose agents for architecture, codegen, CI, docs and repo scanning.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-design",
+      "source": "./plugins/agents-design",
+      "description": "Decide how it looks and holds together: brand guardianship, UI and UX design, UX research and architecture, visual storytelling, image prompting, inclusive visuals, and the whimsy injector.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-marketing",
+      "source": "./plugins/agents-marketing",
+      "description": "Take it to market: content creation, growth hacking, app store optimisation, and per-channel specialists for Instagram, TikTok, Twitter/X, Reddit, WeChat, Xiaohongshu and Zhihu.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-product",
+      "source": "./plugins/agents-product",
+      "description": "Decide what to build next: sprint prioritisation, feedback synthesis, trend research, and a behavioural nudge engine.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-project-management",
+      "source": "./plugins/agents-project-management",
+      "description": "Keep the work moving: experiment tracking, project shepherding, studio operations and production, shipping, senior project management, and an orchestrator that dispatches the other agents.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-testing",
+      "source": "./plugins/agents-testing",
+      "description": "Prove it works: API testing, accessibility auditing, performance benchmarking, test writing and fixing, results analysis, evidence collection, tool evaluation, workflow optimisation, and a reality checker.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-support-ops",
+      "source": "./plugins/agents-support-ops",
+      "description": "Run it once it is live: support response, analytics and executive reporting, finance tracking, infrastructure maintenance, legal and compliance checks, and data consolidation, extraction and distribution.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-xr-spatial",
+      "source": "./plugins/agents-xr-spatial",
+      "description": "Build for headsets and spatial platforms: XR interface architecture, cockpit interaction, immersive development, visionOS, and macOS Metal.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "agents-specialized",
+      "source": "./plugins/agents-specialized",
+      "description": "The ones that fit nowhere else: agentic identity and trust architecture, cultural intelligence, developer advocacy, and a joker.",
+      "category": "agents",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-azure-m365",
+      "source": "./plugins/skills-azure-m365",
+      "description": "Microsoft cloud: the Azure SDK skills across .NET, Java, Python, TypeScript and Rust — AI services, storage, messaging, Key Vault, Cosmos, monitoring — plus the M365 agent SDKs.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-cloud-infra",
+      "source": "./plugins/skills-cloud-infra",
+      "description": "Everything that runs the thing: AWS and GCP, Kubernetes, Terraform, Helm, Docker, service mesh, observability and Grafana, deployment pipelines, incident response and on-call, networking and server management.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-security",
+      "source": "./plugins/skills-security",
+      "description": "Offensive and defensive security: penetration testing and the tooling around it, web vulnerability classes, privilege escalation, threat modelling and STRIDE, SAST, secrets management, malware and memory forensics, GDPR handling.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-languages",
+      "source": "./plugins/skills-languages",
+      "description": "Language and framework depth: the -pro skills for Go, Rust, Python, TypeScript, C, C++, C#, Ruby, PHP, Scala, Julia and Elixir, plus Django, FastAPI, NestJS, Prisma, Bun, .NET, Unity, Avalonia and the mobile stacks.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-web-frontend",
+      "source": "./plugins/skills-web-frontend",
+      "description": "The browser half: React, Next.js and Angular patterns, state management and modernisation, design systems and theming, accessibility and WCAG, web performance, i18n, and conversion-rate work on pages and forms.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-data-ai",
+      "source": "./plugins/skills-data-ai",
+      "description": "Data and models: data engineering and pipelines, dbt, Spark, Airflow, databases from Postgres to vector stores, RAG and embeddings, LLM application patterns and evaluation, prompt engineering, agent memory, and multi-agent orchestration.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-devex",
+      "source": "./plugins/skills-devex",
+      "description": "How the work gets done: git and PR workflows, commits and changelogs, TDD and testing patterns, debugging strategies, refactoring and tech debt, code review, planning and plan execution, worktrees, and authoring skills themselves.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-integrations",
+      "source": "./plugins/skills-integrations",
+      "description": "Wiring to other people’s systems: the automation skills for Slack, Jira, Notion, Asana, HubSpot, Salesforce, Stripe, Zapier and Make, the Google and Microsoft suites, the messaging platforms, and the CRM and helpdesk tools.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-business",
+      "source": "./plugins/skills-business",
+      "description": "The commercial side: SEO from keywords to content refresh, paid ads and marketing psychology, pricing and launch strategy, startup analysis and financial modelling, product management, HR and culture, customer support and sales.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-content-docs",
+      "source": "./plugins/skills-content-docs",
+      "description": "Writing and publishing: documentation architecture and templates, wikis and VitePress, tutorials, Mermaid diagrams, Office documents, doc co-authoring, and the video and article publishing skills.",
+      "category": "skills",
+      "defaultEnabled": false
+    },
+    {
+      "name": "skills-misc",
+      "source": "./plugins/skills-misc",
+      "description": "The skills that fit none of the other groups cleanly — kept together rather than filed somewhere misleading.",
+      "category": "skills",
+      "defaultEnabled": false
     }
   ]
 }
