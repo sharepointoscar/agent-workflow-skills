@@ -1,0 +1,9 @@
+{
+  "name": "agents-engineering",
+  "version": "1.0.0",
+  "description": "Build the thing: backend and frontend architects, AI and data engineers, DevOps, mobile, rapid prototyping, security engineering, and the small single-purpose agents for architecture, codegen, CI, docs and repo scanning.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  }
+}

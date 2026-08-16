@@ -1,0 +1,9 @@
+{
+  "name": "agents-xr-spatial",
+  "version": "1.0.0",
+  "description": "Build for headsets and spatial platforms: XR interface architecture, cockpit interaction, immersive development, visionOS, and macOS Metal.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  }
+}
