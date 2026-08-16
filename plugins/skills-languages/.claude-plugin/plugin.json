@@ -1,0 +1,10 @@
+{
+  "name": "skills-languages",
+  "version": "1.0.0",
+  "description": "Language and framework depth: the -pro skills for Go, Rust, Python, TypeScript, C, C++, C#, Ruby, PHP, Scala, Julia and Elixir, plus Django, FastAPI, NestJS, Prisma, Bun, .NET, Unity, Avalonia and the mobile stacks.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "skills-web-frontend",
+  "version": "1.0.0",
+  "description": "The browser half: React, Next.js and Angular patterns, state management and modernisation, design systems and theming, accessibility and WCAG, web performance, i18n, and conversion-rate work on pages and forms.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

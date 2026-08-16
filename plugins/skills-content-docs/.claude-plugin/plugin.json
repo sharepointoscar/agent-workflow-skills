@@ -1,0 +1,10 @@
+{
+  "name": "skills-content-docs",
+  "version": "1.0.0",
+  "description": "Writing and publishing: documentation architecture and templates, wikis and VitePress, tutorials, Mermaid diagrams, Office documents, doc co-authoring, and the video and article publishing skills.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

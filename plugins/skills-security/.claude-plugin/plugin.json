@@ -1,0 +1,10 @@
+{
+  "name": "skills-security",
+  "version": "1.0.0",
+  "description": "Offensive and defensive security: penetration testing and the tooling around it, web vulnerability classes, privilege escalation, threat modelling and STRIDE, SAST, secrets management, malware and memory forensics, GDPR handling.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

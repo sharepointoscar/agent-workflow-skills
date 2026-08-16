@@ -1,0 +1,10 @@
+{
+  "name": "skills-cloud-infra",
+  "version": "1.0.0",
+  "description": "Everything that runs the thing: AWS and GCP, Kubernetes, Terraform, Helm, Docker, service mesh, observability and Grafana, deployment pipelines, incident response and on-call, networking and server management.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}

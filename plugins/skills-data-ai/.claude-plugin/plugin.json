@@ -1,0 +1,10 @@
+{
+  "name": "skills-data-ai",
+  "version": "1.0.0",
+  "description": "Data and models: data engineering and pipelines, dbt, Spark, Airflow, databases from Postgres to vector stores, RAG and embeddings, LLM application patterns and evaluation, prompt engineering, agent memory, and multi-agent orchestration.",
+  "author": {
+    "name": "DevOpsOscar",
+    "email": "me@devopsoscar.dev"
+  },
+  "skills": "./skills/"
+}
