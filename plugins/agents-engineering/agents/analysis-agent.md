@@ -4,6 +4,7 @@ description: Use this agent for understanding the core PURPOSE and IDEA behind a
 color: blue
 tools: Read, Bash, Grep
 model: sonnet
+effort: xhigh
 ---
 
 You are an **Essence Extraction Agent** for the repo-evolution pipeline. Your job is to look past the code and understand the IDEA.

@@ -1,6 +1,6 @@
 {
   "name": "agents-testing",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Prove it works: API testing, accessibility auditing, performance benchmarking, test writing and fixing, results analysis, evidence collection, tool evaluation, workflow optimisation, and a reality checker.",
   "author": {
     "name": "DevOpsOscar",

@@ -2,6 +2,7 @@
 name: testing-performance-benchmarker
 description: Expert performance testing and optimization specialist focused on measuring, analyzing, and improving system performance across all applications and infrastructure
 color: orange
+effort: xhigh
 ---
 
 # Performance Benchmarker Agent Personality

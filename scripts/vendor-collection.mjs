@@ -18,6 +18,10 @@
  *   - All 499 skill directories are UPPERCASE, and a plugin takes a skill's
  *     invocation name from its directory name.
  *
+ *   - The engineering, testing and design agents are given `effort: xhigh` (the
+ *     `effort` and `version` keys on their AGENT_PLUGINS entries), so nobody has
+ *     to keep a second copy in ~/.claude/agents just to carry that setting.
+ *
  * Everything else is left byte-identical, colours included. The script is
  * idempotent: it deletes and rewrites only the plugins it generates, and never
  * touches plugins/devopsoscar.
@@ -49,6 +53,8 @@ const VERSION = '1.0.0'
 const AGENT_PLUGINS = [
   {
     name: 'agents-engineering',
+    version: '1.0.1',
+    effort: 'xhigh',
     description:
       'Build the thing: backend and frontend architects, AI and data engineers, DevOps, mobile, rapid prototyping, security engineering, and the small single-purpose agents for architecture, codegen, CI, docs and repo scanning.',
     prefixes: ['engineering-'],
@@ -61,6 +67,8 @@ const AGENT_PLUGINS = [
   },
   {
     name: 'agents-design',
+    version: '1.0.1',
+    effort: 'xhigh',
     description:
       'Decide how it looks and holds together: brand guardianship, UI and UX design, UX research and architecture, visual storytelling, image prompting, inclusive visuals, and the whimsy injector.',
     prefixes: ['design-'],
@@ -95,6 +103,8 @@ const AGENT_PLUGINS = [
   },
   {
     name: 'agents-testing',
+    version: '1.0.1',
+    effort: 'xhigh',
     description:
       'Prove it works: API testing, accessibility auditing, performance benchmarking, test writing and fixing, results analysis, evidence collection, tool evaluation, workflow optimisation, and a reality checker.',
     prefixes: ['testing-'],
@@ -284,6 +294,26 @@ function normaliseAgent(text, stem) {
   return `---\n${block}\n---\n${text.slice(fm.end)}`
 }
 
+/**
+ * Sets the plugin's `effort` as the last frontmatter key of an agent, keeping the
+ * file's own line endings. It refuses rather than guesses: an agent with no
+ * frontmatter, or one that already names a different effort, stops the run, so
+ * no agent ships at an effort other than the one its plugin declares. A file
+ * that already carries the same effort is returned unchanged.
+ */
+function withEffort(text, effort, stem) {
+  if (!effort) return text
+  const fm = readFrontmatter(text)
+  if (!fm) die(`agent ${stem} has no frontmatter, so effort: ${effort} cannot be set`)
+  const existing = /^effort:[ \t]*(.*?)[ \t]*$/m.exec(fm.block)
+  if (existing) {
+    if (existing[1] !== effort) die(`agent ${stem} already has effort: ${existing[1]}, but its plugin declares ${effort}`)
+    return text
+  }
+  const eol = /^---\r\n/.test(text) ? '\r\n' : '\n'
+  return `---${eol}${fm.block}${eol}effort: ${effort}${eol}---${eol}${text.slice(fm.end)}`
+}
+
 /** A skill's invocation name comes from its directory, so both are lowercased. */
 function normaliseSkill(text, name) {
   const fm = readFrontmatter(text)
@@ -306,10 +336,10 @@ const descriptionOf = (text) => {
   return (stop ? rest.slice(0, stop.index) : rest).trim()
 }
 
-const writePluginManifest = (dir, name, description, components) =>
+const writePluginManifest = (dir, name, description, components, version = VERSION) =>
   writeFileSync(
     join(dir, '.claude-plugin', 'plugin.json'),
-    JSON.stringify({ name, version: VERSION, description, author: AUTHOR, ...components }, null, 2) + '\n',
+    JSON.stringify({ name, version, description, author: AUTHOR, ...components }, null, 2) + '\n',
   )
 
 const fresh = (dir) => {
@@ -365,13 +395,13 @@ for (const plugin of AGENT_PLUGINS) {
   mkdirSync(join(dir, 'agents'), { recursive: true })
   let chars = 0
   for (const stem of mine) {
-    const out = normaliseAgent(readFileSync(join(AGENT_SRC, `${stem}.md`), 'utf8'), stem)
+    const out = withEffort(normaliseAgent(readFileSync(join(AGENT_SRC, `${stem}.md`), 'utf8'), stem), plugin.effort, stem)
     writeFileSync(join(dir, 'agents', `${stem}.md`), out)
     chars += descriptionOf(out).length + stem.length
   }
   // No `agents` key: the manifest schema rejects a directory string there, and
   // agents/ at the plugin root is discovered by default.
-  writePluginManifest(dir, plugin.name, plugin.description, {})
+  writePluginManifest(dir, plugin.name, plugin.description, {}, plugin.version)
   agentTokens[plugin.name] = { count: mine.length, tokens: Math.round(chars / 4) }
 }
 

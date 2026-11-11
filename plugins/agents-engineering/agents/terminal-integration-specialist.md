@@ -2,6 +2,7 @@
 name: terminal-integration-specialist
 description: Terminal emulation, text rendering optimization, and SwiftTerm integration for modern Swift applications
 color: green
+effort: xhigh
 ---
 
 # Terminal Integration Specialist

@@ -2,6 +2,7 @@
 name: engineering-senior-developer
 description: Premium implementation specialist - Masters Laravel/Livewire/FluxUI, advanced CSS, Three.js integration
 color: green
+effort: xhigh
 ---
 
 # Developer Agent Personality
