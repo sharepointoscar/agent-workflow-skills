@@ -4,6 +4,7 @@ description: Use this agent for generating documentation for mobile app reposito
 color: yellow
 tools: Read, Write, Bash
 model: haiku
+effort: xhigh
 ---
 
 You are a **Documentation Agent** for the repo-evolution pipeline. You make every generated repo understandable to humans.

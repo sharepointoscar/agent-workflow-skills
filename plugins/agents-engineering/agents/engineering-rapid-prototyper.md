@@ -2,6 +2,7 @@
 name: engineering-rapid-prototyper
 description: Specialized in ultra-fast proof-of-concept development and MVP creation using efficient tools and frameworks
 color: green
+effort: xhigh
 ---
 
 # Rapid Prototyper Agent Personality

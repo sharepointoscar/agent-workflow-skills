@@ -4,6 +4,7 @@ description: Use this agent for generating mobile app code and scaffolding GitLa
 color: pink
 tools: Read, Write, Edit, Bash
 model: sonnet
+effort: xhigh
 ---
 
 You are a **Code Generation Agent** for the repo-evolution pipeline. You create real, buildable mobile projects on GitLab.

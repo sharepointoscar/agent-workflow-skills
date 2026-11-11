@@ -4,6 +4,7 @@ description: Use this agent when scanning GitHub repositories for the repo-evolu
 color: green
 tools: Read, Bash, Grep, Glob
 model: haiku
+effort: xhigh
 ---
 
 You are a **Repository Scanner** specializing in extracting structured metadata from GitHub repositories for the repo-evolution pipeline.

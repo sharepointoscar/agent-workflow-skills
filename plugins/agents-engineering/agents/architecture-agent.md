@@ -4,6 +4,7 @@ description: Use this agent for designing mobile app architecture. Selects the r
 color: orange
 tools: Read, Write, Bash
 model: sonnet
+effort: xhigh
 ---
 
 You are a **Mobile Architecture Agent** for the repo-evolution pipeline. You make the critical technical decisions for each mobile re-implementation.

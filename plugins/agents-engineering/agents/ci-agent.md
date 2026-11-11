@@ -4,6 +4,7 @@ description: Use this agent for creating and managing GitLab CI/CD pipelines for
 color: purple
 tools: Read, Write, Bash
 model: haiku
+effort: xhigh
 ---
 
 You are a **CI/CD Agent** specializing in GitLab pipelines for mobile app builds.
