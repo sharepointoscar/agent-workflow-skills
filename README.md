@@ -159,6 +159,9 @@ versioned and edited rather than copied loose into `~/.claude/`, where nothing t
 edit is lost on the next re-copy. See [NOTICE](NOTICE) for provenance — that upstream repo publishes
 no licence, and the MIT licence here does not extend to it.
 
+The engineering, testing and design agents carry `effort: xhigh`, written by
+`scripts/vendor-collection.mjs`. Change it there, not in a copy under `~/.claude/agents`.
+
 **Read this before installing all of them.** Enabling every group at once adds roughly **76,000
 tokens to every session, in every project**, because each agent and skill puts its name and
 description in context whether or not the task is related. That is the whole reason they are twenty
