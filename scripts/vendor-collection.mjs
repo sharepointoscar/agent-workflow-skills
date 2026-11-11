@@ -295,14 +295,23 @@ function normaliseAgent(text, stem) {
 }
 
 /**
- * Sets the plugin's `effort` as the last frontmatter key of an agent. A file that
- * already names an effort is left alone, so running this twice adds nothing.
+ * Sets the plugin's `effort` as the last frontmatter key of an agent, keeping the
+ * file's own line endings. It refuses rather than guesses: an agent with no
+ * frontmatter, or one that already names a different effort, stops the run, so
+ * no agent ships at an effort other than the one its plugin declares. A file
+ * that already carries the same effort is returned unchanged.
  */
-function withEffort(text, effort) {
+function withEffort(text, effort, stem) {
   if (!effort) return text
   const fm = readFrontmatter(text)
-  if (!fm || /^effort:/m.test(fm.block)) return text
-  return `---\n${fm.block}\neffort: ${effort}\n---\n${text.slice(fm.end)}`
+  if (!fm) die(`agent ${stem} has no frontmatter, so effort: ${effort} cannot be set`)
+  const existing = /^effort:[ \t]*(.*?)[ \t]*$/m.exec(fm.block)
+  if (existing) {
+    if (existing[1] !== effort) die(`agent ${stem} already has effort: ${existing[1]}, but its plugin declares ${effort}`)
+    return text
+  }
+  const eol = /^---\r\n/.test(text) ? '\r\n' : '\n'
+  return `---${eol}${fm.block}${eol}effort: ${effort}${eol}---${eol}${text.slice(fm.end)}`
 }
 
 /** A skill's invocation name comes from its directory, so both are lowercased. */
@@ -386,7 +395,7 @@ for (const plugin of AGENT_PLUGINS) {
   mkdirSync(join(dir, 'agents'), { recursive: true })
   let chars = 0
   for (const stem of mine) {
-    const out = withEffort(normaliseAgent(readFileSync(join(AGENT_SRC, `${stem}.md`), 'utf8'), stem), plugin.effort)
+    const out = withEffort(normaliseAgent(readFileSync(join(AGENT_SRC, `${stem}.md`), 'utf8'), stem), plugin.effort, stem)
     writeFileSync(join(dir, 'agents', `${stem}.md`), out)
     chars += descriptionOf(out).length + stem.length
   }
